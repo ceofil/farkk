@@ -1,11 +1,11 @@
 #include "Rect.h"
 
-Rect::Rect(float in_top, float in_left, float in_bot, float in_right)
+Rect::Rect(float in_left, float in_top, float in_right, float in_bot )
 	:
-	top(in_top),
 	left(in_left),
-	bot(in_bot),
-	right(in_right)
+	top(in_top),
+	right(in_right),
+	bot(in_bot)
 {
 }
 
@@ -24,6 +24,12 @@ Rect::Rect(Vec2 center, float w, float h)
 {
 }
 
+Rect Rect::TopLeftWH(Vec2 center, float w, float h)
+{
+	//return Rect(center.x-w/2,center.y-h/2,center.x+w/2,center.y+h/2);
+	return Rect(center - Vec2(w, h)*0.5f, center + Vec2(w, h)*0.5f);
+}
+
 
 
 bool Rect::isColliding(const Rect & other)
@@ -37,4 +43,9 @@ bool Rect::isColliding(const Rect & other)
 void Rect::Draw(Graphics & gfx)
 {
 	gfx.DrawRectPoints(int(left), int(top), int(right), int(bot), c);
+}
+
+void Rect::DrawWithStroke(Graphics & gfx)
+{
+	gfx.DrawRectPointsStroke(int(left), int(top), int(right), int(bot), 2, c);
 }

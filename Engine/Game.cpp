@@ -29,11 +29,7 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	xrange(0, gfx.ScreenWidth - 30),
-	yrange(0, gfx.ScreenHeight - 30),
-	rgbrange(0,255),
-	nr(gfx,25,50,15,15,50,7),
-	text(gfx, 25, 300, 7, 7, 50, 7)
+	txt(gfx, 1, 1, 1, 1, 50, 50)
 {	
 }
 
@@ -53,44 +49,6 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	/*
-	if (kframe == 0) {
-		start = std::chrono::steady_clock::now();
-	}
-	kframe++;
-	if (kframe >= 60) {
-		end = std::chrono::steady_clock::now();
-
-		std::chrono::duration<float> runtime = end - start;
-		durationSecond = runtime.count();
-
-		kframe = 0;
-
-
-		
-	}
-	text.drawfloat(durationSecond, 5, 5, Colors::White);
-	text.drawint(kframe, 5, 15, Colors::White);
-	*/
-
-	if (durationSecond == 0.0f) {
-		start = std::chrono::steady_clock::now();
-	}
-	end = std::chrono::steady_clock::now();
-	std::chrono::duration<float> runtime = end - start;
-	durationSecond = runtime.count();
-	kframe++;
-	if (durationSecond >= 1.0f) {
-		durationSecond = 0.0f;
-		k = kframe;
-		kframe = 0;
-		gfx.DrawCircle(gfx.ScreenWidth / 2, gfx.ScreenHeight / 2, 200, Colors::Red);
-	}
-	text.drawfloat(durationSecond, 5, 5, Colors::White);
-	text.drawint(kframe, 5, 15, Colors::White);
-
-
-	text.drawint(k,5, 25, Colors::White);
 }
 
 

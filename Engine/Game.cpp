@@ -29,7 +29,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	txt(gfx, 1, 1, 1, 1, 50, 50)
+	txt(gfx, 1, 1, 1, 1, 50, 50),
+	ball(Vec2(100.0f, 100.0f), Vec2(10.5f, 10.5f))
 {	
 }
 
@@ -43,12 +44,18 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	ball.Update();
 }
 
 
 
 void Game::ComposeFrame()
 {
+	ball.Draw(gfx);
+	if (ball.wallBounce) {
+		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
+		ball.wallBounce = false; 
+	}
 }
 
 

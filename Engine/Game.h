@@ -28,8 +28,8 @@
 #include "Text.h"
 #include <chrono>
 #include "Rect.h"
-#include "Colors.h"
 #include "SpriteCodex.h"
+#include "Ball.h"
 
 
 class Game
@@ -55,6 +55,7 @@ private:
 	std::random_device rd;
 	std::mt19937 rng;
 	Text txt;
+	Ball ball;
 	/********************************/
 };
 

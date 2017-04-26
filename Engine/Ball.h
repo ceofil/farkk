@@ -14,6 +14,7 @@ public:
 	void Draw(Graphics& gfx);
 	void Update();
 	Rect GetRect();
+	Vec2 GetPos();
 public:
 	bool wallBounce;
 private:

@@ -61,3 +61,8 @@ Rect Ball::GetRect()
 {
 	return Rect(pos, r * 2.0f, r * 2.0f);
 }
+
+Vec2 Ball::GetPos()
+{
+	return pos;
+}

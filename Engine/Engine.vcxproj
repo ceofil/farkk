@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="SpriteCodex.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="SpriteCodex.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Game.cpp" />

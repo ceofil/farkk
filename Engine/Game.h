@@ -27,6 +27,8 @@
 #include <random>
 #include "Text.h"
 #include <chrono>
+#include "Rect.h"
+#include "Colors.h"
 
 
 class Game

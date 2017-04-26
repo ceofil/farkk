@@ -33,10 +33,10 @@ void Rect::RectInit(Vec2 topleft, float w, float h, Color in_c)
 
 bool Rect::isColliding(const Rect & other)
 {
-	return	top<other.bot &&
-			bot>other.top &&
-			left<other.right &&
-			right>other.left;
+	return	top<=other.bot &&
+			bot>=other.top &&
+			left<=other.right &&
+			right>=other.left;
 }
 
 void Rect::Draw(Graphics & gfx)

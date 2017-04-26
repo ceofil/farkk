@@ -59,5 +59,5 @@ void Ball::Update()
 
 Rect Ball::GetRect()
 {
-	return Rect(pos, r / 2.0, r / 2.0);
+	return Rect(pos, r * 2.0f, r * 2.0f);
 }

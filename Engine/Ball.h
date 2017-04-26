@@ -19,7 +19,7 @@ public:
 private:
 	Vec2 pos = { 100.0f,100.0f };
 	Vec2 vel = { 10.0f,15.0f };
-	static constexpr float r = 14.0f;
+	static constexpr float r = 14.0f/2.0f; 
 	Graphics& gfx;
 
 };

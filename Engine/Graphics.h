@@ -58,6 +58,7 @@ public:
 	void PutPixel( int x,int y,Color c );
 	void DrawRect(int x, int y, int w, int h, Color c);
 	void DrawRectPoints(int x1, int y1, int x2, int y2, Color c);
+	void DrawRectPointsStroke(int x1, int y1, int x2, int y2, int stroke, Color c);
 	void DrawCircle(int x, int y, int r, Color c);
 	bool insideScreen(int x, int y);
 	int seglen(int x1, int y1, int x2, int y2);

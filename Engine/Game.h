@@ -52,9 +52,10 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	float speed = 300.0f;
 	FrameTimer ft;
-	static constexpr int nrbricks = 16;
-	static constexpr int wbricks = 40;
+	static constexpr int nrbricks = 19;
+	static constexpr int wbricks = Graphics::ScreenWidth / nrbricks;
 	static constexpr int hbricks = 20;
 	static constexpr int space = (Graphics::ScreenWidth - nrbricks*wbricks)/2;
 	static constexpr int nrraws = 10;

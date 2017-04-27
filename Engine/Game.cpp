@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	ball(Vec2(100.0f, 300.0f), Vec2(5.0f, 5.0f)),
+	ball(Vec2(350.0f, 10.0f), Vec2(-5.0f, -5.0f)),
 	pad(400.0f,float(Graphics::ScreenHeight-75),10.0f,100.0f,5.0f)
 {	
 	pad.c = { 255,255,255 };
@@ -54,7 +54,9 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+
 	ball.Update();
+
 	float mini = Graphics::ScreenWidth;
 	int targeti = -1;
 	int targetj = -1;
@@ -87,7 +89,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	ball.Draw(gfx);
+	
 	if (ball.wallBounce) {
 		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
 		ball.wallBounce = false;
@@ -100,6 +102,7 @@ void Game::ComposeFrame()
 		}
 	}
 	pad.Draw(gfx);
+	ball.Draw(gfx);
 	txt.drawint(int(pad.x), 50, 50, Colors::Green);
 	txt.drawint(int(pad.y), 50, 70, Colors::Green);
 }

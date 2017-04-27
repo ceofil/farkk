@@ -9,9 +9,9 @@ void Brick::Init(Vec2 in_pos, float in_w, float in_h)
 
 void Brick::Draw(Graphics & gfx)
 {
-	if (!destroyed) {
+	//if (!destroyed) {
 		getRect().DrawWithStroke(gfx, c);
-	}
+	//}
 }
 
 bool Brick::isColliding(Ball & ball)
@@ -23,19 +23,26 @@ void Brick::Update(Ball & ball)
 {
 	const Vec2 ballpoz = ball.GetPos();
 	const Rect brickrec = getRect();
-	
-	if (ballpoz.y < brickrec.top || ballpoz.y > brickrec.bot) {
+	if (std::signbit(ball.GetVel().x) == std::signbit (   (ballpoz-getCenter()  )  .x)      )
+	{
 		ball.toggleY();
 	}
-	else {
-		ball.toggleX();
+	else 
+	{
+		if (ballpoz.x > brickrec.left && ballpoz.x < brickrec.right) {
+			ball.toggleY();
+		}
+		else {
+			ball.toggleX();
+		}
 	}
+	c = { 30,30,30 };
 	destroyed = true;
 }
 
 Rect Brick::getRect()
 {
-	return Rect::TopLeftWH(pos, w, h);
+	return Rect(pos,pos+Vec2(w,h));
 }
 
 Vec2 Brick::getCenter()

@@ -31,7 +31,7 @@
 #include "SpriteCodex.h"
 #include "Ball.h"
 #include "Brick.h"
-
+#include "Pad.h"
 
 class Game
 {
@@ -68,6 +68,7 @@ private:
 	std::mt19937 rng;
 	Text txt;
 	Ball ball;
+	Pad pad;
 	Brick brickz[nrraws][nrbricks];
 	/********************************/
 };

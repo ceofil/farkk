@@ -21,23 +21,16 @@ bool Brick::isColliding(Ball & ball)
 
 void Brick::Update(Ball & ball)
 {
-	if (isColliding(ball))
-	{
-		
-		bool xsens = false;
-		bool ysens = false;
-		const Vec2 ballpoz = ball.GetPos();
-		const Rect brickrec = getRect();
-
-		
-		if (ballpoz.y < brickrec.top || ballpoz.y > brickrec.bot) {
-			ball.toggleY();
-		}
-		else {
-			ball.toggleX();
-		}
-		destroyed = true;
+	const Vec2 ballpoz = ball.GetPos();
+	const Rect brickrec = getRect();
+	
+	if (ballpoz.y < brickrec.top || ballpoz.y > brickrec.bot) {
+		ball.toggleY();
 	}
+	else {
+		ball.toggleX();
+	}
+	destroyed = true;
 }
 
 Rect Brick::getRect()

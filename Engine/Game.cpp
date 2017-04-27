@@ -30,13 +30,15 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	ball(Vec2(100.0f, 300.0f), Vec2(14.0f, 15.0f))
+	ball(Vec2(100.0f, 300.0f), Vec2(5.0f, 5.0f)),
+	pad(400.0f,float(Graphics::ScreenHeight-75),10.0f,100.0f,5.0f)
 {	
+	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
 	{
 		for (int j = 0; j < nrbricks; j++)
 		{
-			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*hbricks+hbricks)), float(wbricks), float(hbricks));
+			brickz[i][j].Init(Vec2(float(j*wbricks+space+wbricks/2), float(i*hbricks+hbricks+hbricks/2)), float(wbricks), float(hbricks));
 			brickz[i][j].c = cls[i % 2];
 		}
 	}
@@ -66,6 +68,7 @@ void Game::UpdateModel()
 			}
 		}
 	}
+	pad.Update(wnd.kbd, ball);
 }
 
 
@@ -84,8 +87,9 @@ void Game::ComposeFrame()
 			brickz[i][j].Draw(gfx);
 		}
 	}
-	txt.drawint(int(ball.GetVel().x), 50, 50, Colors::Green);
-	txt.drawint(int(ball.GetVel().y), 50, 70, Colors::Green);
+	pad.Draw(gfx);
+	txt.drawint(int(pad.x), 50, 50, Colors::Green);
+	txt.drawint(int(pad.y), 50, 70, Colors::Green);
 }
 
 

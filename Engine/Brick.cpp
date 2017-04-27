@@ -36,7 +36,7 @@ void Brick::Update(Ball & ball)
 			ball.toggleX();
 		}
 	}
-	c = { 30,30,30 };
+	c = { 5,5,5 };
 	destroyed = true;
 }
 

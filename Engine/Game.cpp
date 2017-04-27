@@ -30,8 +30,8 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	ball(Vec2(350.0f, 10.0f), Vec2(-5.0f, -5.0f)),
-	pad(400.0f,float(Graphics::ScreenHeight-75),10.0f,100.0f,5.0f)
+	ball(Vec2(350.0f, 10.0f), Vec2(-1.0f, -0.5f), 150.0f),
+	pad(400.0f,float(Graphics::ScreenHeight-75),150.0f,100.0f,5.0f)
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
@@ -47,15 +47,22 @@ Game::Game(MainWindow& wnd)
 void Game::Go()
 {
 	gfx.BeginFrame();
-	UpdateModel();
+	float timeperiod = ft.Mark();
+	while (timeperiod > 0.0f)
+	{
+		const float dt = std::min(0.0025f,timeperiod);
+		UpdateModel(dt);
+		timeperiod -= dt;
+	}
+	
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
 
-	ball.Update();
+	ball.Update(dt);
 
 	float mini = Graphics::ScreenWidth;
 	int targeti = -1;
@@ -82,7 +89,7 @@ void Game::UpdateModel()
 	if (targeti >= 0) {
 		brickz[targeti][targetj].Update(ball);
 	}
-	pad.Update(wnd.kbd, ball);
+	pad.Update(wnd.kbd, ball, dt);
 }
 
 

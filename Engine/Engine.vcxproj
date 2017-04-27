@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SpriteCodex.h" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SpriteCodex.cpp" />

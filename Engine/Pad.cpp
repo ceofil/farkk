@@ -15,13 +15,13 @@ void Pad::Draw(Graphics & gfx)
 	GetRect().Draw(gfx, c);
 }
 
-void Pad::Update(Keyboard& kbd,Ball& ball)
+void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
 {
 	if (kbd.KeyIsPressed(VK_LEFT)) {
-		x -= speed;
+		x -= speed*dt;
 	}
 	if(kbd.KeyIsPressed(VK_RIGHT)){
-		x += speed;
+		x += speed*dt;
 	}
 	if (GetRect().isColliding(ball.GetRect())) {
 		ball.toggleY();

@@ -1,9 +1,10 @@
 #include "Ball.h"
 
-Ball::Ball(Vec2 in_pos, Vec2 in_vel)
+Ball::Ball(Vec2 in_pos, Vec2 in_vel, float in_speed)
 	:
 	pos(in_pos),
 	vel(in_vel),
+	speed(in_speed),
 	gfx(gfx)
 {
 }
@@ -51,9 +52,9 @@ void Ball::Draw(Graphics& gfx)
 	SpriteCodex::DrawBall(pos,gfx);
 }
 
-void Ball::Update()
+void Ball::Update(float dt)
 {
-	pos += vel;
+	pos += vel.GetNormalized()*speed*dt;
 	wallbounce(Rect(Vec2(1.0f, 1.0f), Vec2(float(Graphics::ScreenWidth - 1), float(Graphics::ScreenHeight-1))));
 }
 

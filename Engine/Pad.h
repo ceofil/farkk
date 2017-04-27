@@ -15,6 +15,7 @@ public:
 public:
 	Color c;
 	float w;
+	bool cooldown = false;
 public:
 	float x;
 	float speed;

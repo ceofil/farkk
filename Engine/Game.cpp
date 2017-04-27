@@ -30,8 +30,8 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	ball(Vec2(350.0f, 10.0f), Vec2(-1.0f, -0.5f), 150.0f),
-	pad(400.0f,float(Graphics::ScreenHeight-75),150.0f,100.0f,5.0f)
+	ball(Vec2(350.0f, 10.0f), Vec2(-1.0f, -0.5f), 350.0f),
+	pad(400.0f,float(Graphics::ScreenHeight-75),350.0f,100.0f,40.0f)
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
@@ -88,6 +88,13 @@ void Game::UpdateModel(float dt)
 	}
 	if (targeti >= 0) {
 		brickz[targeti][targetj].Update(ball);
+		pad.cooldown = false;
+	}
+	if (ball.wallBounce) {
+		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
+		ball.wallBounce = false;
+		pad.cooldown = false;
+
 	}
 	pad.Update(wnd.kbd, ball, dt);
 }
@@ -97,10 +104,7 @@ void Game::UpdateModel(float dt)
 void Game::ComposeFrame()
 {
 	
-	if (ball.wallBounce) {
-		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
-		ball.wallBounce = false;
-	}
+	
 	for (int i = 0; i < nrraws; i++)
 	{
 		for (int j = 0; j < nrbricks; j++)

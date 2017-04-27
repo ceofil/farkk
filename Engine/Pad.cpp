@@ -23,8 +23,23 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
 	if(kbd.KeyIsPressed(VK_RIGHT)){
 		x += speed*dt;
 	}
-	if (GetRect().isColliding(ball.GetRect())) {
-		ball.toggleY();
+	if (!cooldown && GetRect().isColliding(ball.GetRect())) {
+		const Vec2 ballpoz = ball.GetPos();
+		const Rect rec = GetRect();
+		if (std::signbit(ball.GetVel().x) == std::signbit(ballpoz.x - x) )
+		{
+			ball.toggleY();
+		}
+		else
+		{
+			if (ballpoz.x > rec.left && ballpoz.x < rec.right) {
+				ball.toggleY();
+			}
+			else {
+				ball.toggleX();
+			}
+		}
+		cooldown = true;
 	}
 	
 

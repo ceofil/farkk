@@ -37,3 +37,8 @@ Rect Brick::getRect()
 {
 	return Rect::TopLeftWH(pos, w, h);
 }
+
+Vec2 Brick::getCenter()
+{
+	return Vec2(pos.x + w / 2.0f, pos.y + h / 2.0f);
+}

@@ -55,18 +55,30 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	ball.Update();
+	float mini = Graphics::ScreenWidth;
+	int targeti = -1;
+	int targetj = -1;
 	for (int i = 0; i < nrraws; i++)
 	{
 		for (int j = 0; j < nrbricks; j++)
 		{
 			if (brickz[i][j].destroyed == false)
 			{
-				if (brickz[i][j].isColliding(ball)) {
-					brickz[i][j].Update(ball);
-					break;
+				if (brickz[i][j].isColliding(ball)) 
+				{
+					float dist = (ball.GetPos() - brickz[i][j].getCenter()).getLengthSq();
+					if (dist < mini)
+					{
+						mini = dist;
+						targeti = i;
+						targetj = j;
+					}
 				}
 			}
 		}
+	}
+	if (targeti >= 0) {
+		brickz[targeti][targetj].Update(ball);
 	}
 	pad.Update(wnd.kbd, ball);
 }

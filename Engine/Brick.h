@@ -12,6 +12,7 @@ public:
 	bool isColliding(Ball& ball);
 	void Update(Ball & ball);
 	Rect getRect();
+	Vec2 getCenter();
 public:
 	bool destroyed = false;
 	Color c;

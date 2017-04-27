@@ -15,6 +15,7 @@ public:
 	void Update();
 	Rect GetRect();
 	Vec2 GetPos();
+	Vec2 GetVel();
 public:
 	bool wallBounce;
 private:

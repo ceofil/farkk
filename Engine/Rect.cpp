@@ -40,12 +40,12 @@ bool Rect::isColliding(const Rect & other)
 			right>=other.left;
 }
 
-void Rect::Draw(Graphics & gfx)
+void Rect::Draw(Graphics & gfx, Color& c)
 {
 	gfx.DrawRectPoints(int(left), int(top), int(right), int(bot), c);
 }
 
-void Rect::DrawWithStroke(Graphics & gfx)
+void Rect::DrawWithStroke(Graphics & gfx, Color& c)
 {
 	gfx.DrawRectPointsStroke(int(left), int(top), int(right), int(bot), 2, c);
 }

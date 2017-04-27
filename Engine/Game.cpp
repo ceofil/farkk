@@ -29,10 +29,18 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	txt(gfx, 1, 1, 1, 1, 50, 50),
-	ball(Vec2(100.0f, 100.0f), Vec2(10.5f, 10.5f))
+	txt(gfx, 1, 1, 2, 2, 50, 50),
+	ball(Vec2(100.0f, 300.0f), Vec2(14.0f, 15.0f))
 {	
-}
+	for (int i = 0; i < nrraws; i++)
+	{
+		for (int j = 0; j < nrbricks; j++)
+		{
+			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*hbricks+hbricks)), float(wbricks), float(hbricks));
+			brickz[i][j].c = cls[i % 2];
+		}
+	}
+}//make it so it spanws new layers of bricks over time
 
 void Game::Go()
 {
@@ -45,6 +53,19 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	ball.Update();
+	for (int i = 0; i < nrraws; i++)
+	{
+		for (int j = 0; j < nrbricks; j++)
+		{
+			if (brickz[i][j].destroyed == false)
+			{
+				if (brickz[i][j].isColliding(ball)) {
+					brickz[i][j].Update(ball);
+					break;
+				}
+			}
+		}
+	}
 }
 
 
@@ -54,8 +75,17 @@ void Game::ComposeFrame()
 	ball.Draw(gfx);
 	if (ball.wallBounce) {
 		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
-		ball.wallBounce = false; 
+		ball.wallBounce = false;
 	}
+	for (int i = 0; i < nrraws; i++)
+	{
+		for (int j = 0; j < nrbricks; j++)
+		{
+			brickz[i][j].Draw(gfx);
+		}
+	}
+	txt.drawint(int(ball.GetVel().x), 50, 50, Colors::Green);
+	txt.drawint(int(ball.GetVel().y), 50, 70, Colors::Green);
 }
 
 

@@ -30,6 +30,7 @@
 #include "Rect.h"
 #include "SpriteCodex.h"
 #include "Ball.h"
+#include "Brick.h"
 
 
 class Game
@@ -50,12 +51,24 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	
+	static constexpr int nrbricks = 16;
+	static constexpr int wbricks = 40;
+	static constexpr int hbricks = 20;
+	static constexpr int space = (Graphics::ScreenWidth - nrbricks*wbricks)/2;
+	static constexpr int nrraws = 10;
+	Color cls[2] = {
+		{255,255,0},
+		//{255,0,0},
+		//{0,255,0},
+		//{0,0,255},
+		{255,0,255}
+	};
 
 	std::random_device rd;
 	std::mt19937 rng;
 	Text txt;
 	Ball ball;
+	Brick brickz[nrraws][nrbricks];
 	/********************************/
 };
 

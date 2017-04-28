@@ -41,9 +41,9 @@ Game::Game(MainWindow& wnd)
 			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), 1 );
 		}
 	}
-	brickz[nrraws - 1][nrbricks - 1].SetEffects(0);
-	brickz[nrraws - 1][nrbricks - 5].SetEffects(2);
-	brickz[nrraws - 1][nrbricks - 7].SetEffects(3);
+	
+	brickz[nrraws - 1][nrbricks - 9].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 1].SetEffects(2);
 }
 
 void Game::Go()
@@ -93,6 +93,21 @@ void Game::UpdateModel(float dt)
 		doEffect(targeti, targetj);
 		pad.cooldown = false;
 	}
+	while (explosion) 
+	{
+		for (int i = 0; i < nrraws; i++)
+		{
+			for (int j = 0; j < nrbricks; j++)
+			{
+				if (brickz[i][j].destroyed == true && brickz[i][j].effect.triggered == false)
+				{
+					explosion = false;
+					doEffect(i, j);
+				}
+			}
+		}
+	}
+
 	if (ball.wallBounce) {
 		gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
 		ball.wallBounce = false;
@@ -127,26 +142,27 @@ void Game::ComposeFrame()
 
 void Game::doEffect(int i, int j)
 {
-	if (brickz[i][j].effect.bomb == true)
-	{
-		for (int li = 0; li < nrraws; li++)
+		if (brickz[i][j].effect.bomb == true)
 		{
-			for (int lj = 0; lj < nrbricks; lj++)
+			for (int li = 0; li < nrraws; li++)
 			{
-				float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
-				if (dist < 100.0f) {
-					brickz[li][lj].destroyed = true;
-					doEffect(li, lj);
+				for (int lj = 0; lj < nrbricks; lj++)
+				{
+					float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
+					if (dist < 200.0f && dist > 1.0f) {
+						brickz[li][lj].destroyed = true;
+						explosion = true;
+					}
 				}
 			}
 		}
-	}
-	if (brickz[i][j].effect.wlarge == true)
-	{
-		pad.SetLargeW();
-	}
-	if (brickz[i][j].effect.wsmall == true)
-	{
-		pad.SetNarrowW();
-	}
+		if (brickz[i][j].effect.wlarge == true)
+		{
+			pad.SetLargeW();
+		}
+		if (brickz[i][j].effect.wsmall == true)
+		{
+			pad.SetNarrowW();
+		}
+		brickz[i][j].effect.triggered = true;
 }

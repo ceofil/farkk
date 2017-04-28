@@ -67,6 +67,8 @@ private:
 	Ball ball;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
+
+	bool explosion = false;
 	/********************************/
 };
 

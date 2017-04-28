@@ -25,6 +25,7 @@ public:
 	struct Effect
 	{
 		bool empty = true;
+		bool triggered = false;
 		bool bomb = false;
 		bool poop = false;
 		bool wlarge = false;

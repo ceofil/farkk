@@ -38,9 +38,10 @@ Game::Game(MainWindow& wnd)
 	{
 		for (int j = 0; j < nrbricks; j++)
 		{
-			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), int(float(nrraws-i+1)/float(nrraws)*5.0f) );
+			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), !(!((i)%nrraws)+1) );
 		}
 	}
+	brickz[nrraws - 1][nrbricks-1].effect.bomb = true;
 }//make it so it spanws new layers of bricks over time
 
 void Game::Go()
@@ -87,6 +88,7 @@ void Game::UpdateModel(float dt)
 	}
 	if (targeti >= 0) {
 		brickz[targeti][targetj].Update(ball);
+		doEffect(targeti, targetj);
 		pad.cooldown = false;
 	}
 	if (ball.wallBounce) {
@@ -97,6 +99,8 @@ void Game::UpdateModel(float dt)
 	}
 	pad.Update(wnd.kbd, ball, dt);
 }
+
+
 
 
 
@@ -118,3 +122,20 @@ void Game::ComposeFrame()
 
 
 
+
+void Game::doEffect(int i, int j)
+{
+	if (brickz[i][j].effect.bomb == true)
+	{
+		for (int li = 0; li < nrraws; li++)
+		{
+			for (int lj = 0; lj < nrbricks; lj++)
+			{
+				float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
+				if (dist < 100.0f) {
+					brickz[li][lj].destroyed = true;
+				}
+			}
+		}
+	}
+}

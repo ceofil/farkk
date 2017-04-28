@@ -46,6 +46,7 @@ private:
 	void UpdateModel(float dt);
 	/********************************/
 	/*  User Functions              */
+	void doEffect(int i, int j);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -57,7 +58,7 @@ private:
 	static constexpr int nrbricks = 19;
 	static constexpr int wbricks = Graphics::ScreenWidth / nrbricks;
 	static constexpr int space = (Graphics::ScreenWidth - nrbricks*wbricks)/2;
-	static constexpr int nrraws = 25;
+	static constexpr int nrraws = 9;
 
 
 	std::random_device rd;

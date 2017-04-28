@@ -1,15 +1,36 @@
 #include "Brick.h"
 
-void Brick::Init(Vec2 in_pos, float in_w, int in_klife)
+void Brick::Init(Vec2 in_pos, float in_w, int type)
 {
 	pos = in_pos;
 	w = in_w;
-	klife = in_klife;
-	const int r = arrOfColors[klife - 1][0];
-	const int g = arrOfColors[klife - 1][1];
-	const int b = arrOfColors[klife - 1][2];
-	const Color cl(r, g, b);
-	c = cl;
+	if (type == 0) {
+		klife = 1;
+		effect.bomb = true;
+		const Color cl(255, 0, 0);
+		c = cl;
+	}
+	else if (type == 1) {
+		effect.poop = true;
+		klife = 1;
+		const int r = arrOfColors[klife - 1][0];
+		const int g = arrOfColors[klife - 1][1];
+		const int b = arrOfColors[klife - 1][2];
+		const Color cl(r, g, b);
+		c = cl;
+	}
+	else if (type == 2) {
+		effect.wlarge = true;
+	}
+	else if (type == 3) {
+		effect.wsmall = true;
+	}
+	else if (type == 4) {
+		effect.block = true;
+	}
+	else {
+		
+	}
 }
 
 void Brick::Draw(Graphics & gfx)

@@ -7,28 +7,23 @@
 class Brick 
 {
 public:
-	void Init(Vec2 in_pos, float in_w, int type);
+	void Init(Vec2 in_pos, float in_w, int in_type);
 	void Draw(Graphics& gfx);
 	bool isColliding(Ball& ball);
 	void Update(Ball & ball);
 	Rect getRect();
 	Vec2 getCenter();
+	void SetEffects(int in_type);
 public:
 	bool destroyed = false;
+	int type;
 	Color c;
 	int klife = 1;
 	int totallife = 1;
 	static constexpr float h = 20.0f;
-	static constexpr int arrOfColors[5][3] = 
-	{
-		{75,75,75},
-		{125,125,125},
-		{175,175,175},
-		{200,200,200},
-		{255,255,255}
-	}; 
 	struct Effect
 	{
+		bool empty = true;
 		bool bomb = false;
 		bool poop = false;
 		bool wlarge = false;

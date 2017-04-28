@@ -38,11 +38,12 @@ Game::Game(MainWindow& wnd)
 	{
 		for (int j = 0; j < nrbricks; j++)
 		{
-			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), !(!((i)%nrraws)+1) );
+			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), 1 );
 		}
 	}
-	brickz[nrraws - 1][nrbricks-1].effect.bomb = true;
-}//make it so it spanws new layers of bricks over time
+	brickz[nrraws - 1][nrbricks - 1].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 5].SetEffects(0);
+}
 
 void Game::Go()
 {

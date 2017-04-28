@@ -1,36 +1,10 @@
 #include "Brick.h"
 
-void Brick::Init(Vec2 in_pos, float in_w, int type)
+void Brick::Init(Vec2 in_pos, float in_w, int in_type)
 {
 	pos = in_pos;
 	w = in_w;
-	if (type == 0) {
-		klife = 1;
-		effect.bomb = true;
-		const Color cl(255, 0, 0);
-		c = cl;
-	}
-	else if (type == 1) {
-		effect.poop = true;
-		klife = 1;
-		const int r = arrOfColors[klife - 1][0];
-		const int g = arrOfColors[klife - 1][1];
-		const int b = arrOfColors[klife - 1][2];
-		const Color cl(r, g, b);
-		c = cl;
-	}
-	else if (type == 2) {
-		effect.wlarge = true;
-	}
-	else if (type == 3) {
-		effect.wsmall = true;
-	}
-	else if (type == 4) {
-		effect.block = true;
-	}
-	else {
-		
-	}
+	SetEffects(type);
 }
 
 void Brick::Draw(Graphics & gfx)
@@ -66,14 +40,6 @@ void Brick::Update(Ball & ball)
 	if(klife<1)
 	{
 		destroyed = true;
-		c = { 5,5,5 };
-	}
-	else {
-		const int r = arrOfColors[klife - 1][0];
-		const int g = arrOfColors[klife - 1][1];
-		const int b = arrOfColors[klife - 1][2];
-		const Color cl(r, g, b);
-		c = cl; 
 	}
 	
 }
@@ -86,4 +52,30 @@ Rect Brick::getRect()
 Vec2 Brick::getCenter()
 {
 	return Vec2(pos.x + w / 2.0f, pos.y + h / 2.0f);
+}
+
+void Brick::SetEffects(int in_type)
+{
+	type = in_type;
+	if (type == 0) {
+		klife = 1;
+		effect.bomb = true;
+		const Color cl(255, 0, 0);
+		c = cl;
+	}
+	else if (type == 1) {
+		klife = 1;
+		const Color cl(100, 100, 100);
+		c = cl;
+	}
+	else if (type == 2) {
+		effect.wlarge = true;
+	}
+	else if (type == 3) {
+		effect.wsmall = true;
+	}
+	else if (type == 4) {
+		effect.block = true;
+	}
+	effect.empty = false;
 }

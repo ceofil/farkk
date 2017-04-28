@@ -134,7 +134,7 @@ void Game::doEffect(int i, int j)
 			for (int lj = 0; lj < nrbricks; lj++)
 			{
 				float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
-				if (dist < .0f) {
+				if (dist < 100.0f) {
 					brickz[li][lj].destroyed = true;
 					doEffect(li, lj);
 				}

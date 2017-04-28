@@ -4,7 +4,7 @@ void Brick::Init(Vec2 in_pos, float in_w, int in_type)
 {
 	pos = in_pos;
 	w = in_w;
-	SetEffects(type);
+	SetEffects(in_type);
 }
 
 void Brick::Draw(Graphics & gfx)
@@ -36,10 +36,12 @@ void Brick::Update(Ball & ball)
 			ball.toggleX();
 		}
 	}
-	klife--;
-	if(klife<1)
-	{
-		destroyed = true;
+	if (!effect.block) {
+		klife--;
+		if (klife < 1)
+		{
+			destroyed = true;
+		}
 	}
 	
 }
@@ -60,22 +62,32 @@ void Brick::SetEffects(int in_type)
 	if (type == 0) {
 		klife = 1;
 		effect.bomb = true;
-		const Color cl(255, 0, 0);
-		c = cl;
+		SetRGB(255, 0, 0);
 	}
 	else if (type == 1) {
 		klife = 1;
-		const Color cl(100, 100, 100);
-		c = cl;
+		SetRGB(255, 255, 255);
 	}
 	else if (type == 2) {
 		effect.wlarge = true;
+		SetRGB(0, 255, 0);
 	}
 	else if (type == 3) {
 		effect.wsmall = true;
+		SetRGB(255, 255, 0);
 	}
 	else if (type == 4) {
 		effect.block = true;
+		SetRGB(100, 100, 100);
 	}
 	effect.empty = false;
+}
+
+void Brick::SetRGB(int ir, int ig, int ib)
+{
+	r = ir;
+	g = ig;
+	b = ib;
+	Color cl(r, g, b);
+	c = cl;
 }

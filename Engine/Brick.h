@@ -14,6 +14,7 @@ public:
 	Rect getRect();
 	Vec2 getCenter();
 	void SetEffects(int in_type);
+	void SetRGB(int ir, int ig, int ib);
 public:
 	bool destroyed = false;
 	int type;
@@ -35,6 +36,9 @@ public:
 private:
 	Vec2 pos; //topleft
 	float w;
+	int r=0;
+	int g=255;
+	int b=255;
 	
 	
 };

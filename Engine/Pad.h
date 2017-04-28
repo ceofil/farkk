@@ -12,6 +12,8 @@ public:
 	void Draw(Graphics& gfx);
 	void Update(Keyboard& kbd, Ball& ball, float dt);
 	Rect GetRect();
+	void SetLargeW();
+	void SetNarrowW();
 public:
 	Color c;
 	float w;
@@ -21,4 +23,5 @@ public:
 	float speed;
 	float y;
 	float h;
+	float InitialWidth;
 };

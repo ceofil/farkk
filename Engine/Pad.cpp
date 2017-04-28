@@ -6,7 +6,8 @@ Pad::Pad(float in_x, float in_y, float in_speed, float in_w, float in_h)
 	y(in_y),
 	speed(in_speed),
 	w(in_w),
-	h(in_h)
+	h(in_h),
+	InitialWidth(in_w)
 {
 }
 
@@ -55,4 +56,14 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
 Rect Pad::GetRect()
 {
 	return Rect(Vec2(x, y), w, h);
+}
+
+void Pad::SetLargeW()
+{
+	w = 1.5f * InitialWidth;
+}
+
+void Pad::SetNarrowW()
+{
+	w = 0.7 * InitialWidth;
 }

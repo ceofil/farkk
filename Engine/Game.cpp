@@ -42,7 +42,8 @@ Game::Game(MainWindow& wnd)
 		}
 	}
 	brickz[nrraws - 1][nrbricks - 1].SetEffects(0);
-	brickz[nrraws - 1][nrbricks - 5].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 5].SetEffects(2);
+	brickz[nrraws - 1][nrbricks - 7].SetEffects(3);
 }
 
 void Game::Go()
@@ -107,7 +108,7 @@ void Game::UpdateModel(float dt)
 
 void Game::ComposeFrame()
 {
-	
+	gfx.DrawRectPoints(1, 1, Graphics::ScreenWidth - 1, Graphics::ScreenHeight - 1, Color(60, 60, 60));
 	
 	for (int i = 0; i < nrraws; i++)
 	{
@@ -133,10 +134,19 @@ void Game::doEffect(int i, int j)
 			for (int lj = 0; lj < nrbricks; lj++)
 			{
 				float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
-				if (dist < 100.0f) {
+				if (dist < .0f) {
 					brickz[li][lj].destroyed = true;
+					doEffect(li, lj);
 				}
 			}
 		}
+	}
+	if (brickz[i][j].effect.wlarge == true)
+	{
+		pad.SetLargeW();
+	}
+	if (brickz[i][j].effect.wsmall == true)
+	{
+		pad.SetNarrowW();
 	}
 }

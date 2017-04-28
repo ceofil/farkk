@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	ball(Vec2(350.0f, 500.0f), Vec2(-1.0f, -0.5f), speed),
+	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
 	pad(400.0f,float(Graphics::ScreenHeight-75),speed,100.0f,10.0f)
 {	
 	pad.c = { 255,255,255 };
@@ -38,8 +38,7 @@ Game::Game(MainWindow& wnd)
 	{
 		for (int j = 0; j < nrbricks; j++)
 		{
-			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*hbricks+space)), float(wbricks), float(hbricks));
-			brickz[i][j].c = cls[(i+j) % 2];
+			brickz[i][j].Init(Vec2(float(j*wbricks+space), float(i*Brick::h+space)), float(wbricks), int(float(nrraws-i+1)/float(nrraws)*5.0f) );
 		}
 	}
 }//make it so it spanws new layers of bricks over time
@@ -114,7 +113,6 @@ void Game::ComposeFrame()
 	}
 	pad.Draw(gfx);
 	ball.Draw(gfx);
-	txt.drawint(space, 5, 5, Colors::Green);
 }
 
 

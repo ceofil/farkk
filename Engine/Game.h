@@ -52,20 +52,13 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	float speed = 300.0f;
+	float speed = 800.0f;
 	FrameTimer ft;
 	static constexpr int nrbricks = 19;
 	static constexpr int wbricks = Graphics::ScreenWidth / nrbricks;
-	static constexpr int hbricks = 20;
 	static constexpr int space = (Graphics::ScreenWidth - nrbricks*wbricks)/2;
-	static constexpr int nrraws = 10;
-	Color cls[2] = {
-		{255,255,0},
-		//{255,0,0},
-		//{0,255,0},
-		//{0,0,255},
-		{255,0,255}
-	};
+	static constexpr int nrraws = 25;
+
 
 	std::random_device rd;
 	std::mt19937 rng;

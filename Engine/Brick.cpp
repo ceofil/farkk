@@ -1,17 +1,22 @@
 #include "Brick.h"
 
-void Brick::Init(Vec2 in_pos, float in_w, float in_h)
+void Brick::Init(Vec2 in_pos, float in_w, int in_klife)
 {
 	pos = in_pos;
 	w = in_w;
-	h = in_h;
+	klife = in_klife;
+	const int r = arrOfColors[klife - 1][0];
+	const int g = arrOfColors[klife - 1][1];
+	const int b = arrOfColors[klife - 1][2];
+	const Color cl(r, g, b);
+	c = cl;
 }
 
 void Brick::Draw(Graphics & gfx)
 {
-	//if (!destroyed) {
+	if (!destroyed) {
 		getRect().DrawWithStroke(gfx, c);
-	//}
+	}
 }
 
 bool Brick::isColliding(Ball & ball)
@@ -36,8 +41,20 @@ void Brick::Update(Ball & ball)
 			ball.toggleX();
 		}
 	}
-	c = { 5,5,5 };
-	destroyed = true;
+	klife--;
+	if(klife<1)
+	{
+		destroyed = true;
+		c = { 5,5,5 };
+	}
+	else {
+		const int r = arrOfColors[klife - 1][0];
+		const int g = arrOfColors[klife - 1][1];
+		const int b = arrOfColors[klife - 1][2];
+		const Color cl(r, g, b);
+		c = cl; 
+	}
+	
 }
 
 Rect Brick::getRect()

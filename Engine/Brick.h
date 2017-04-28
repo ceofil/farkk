@@ -7,7 +7,7 @@
 class Brick 
 {
 public:
-	void Init(Vec2 in_pos, float in_w, float in_h);
+	void Init(Vec2 in_pos, float in_w, int in_klife);
 	void Draw(Graphics& gfx);
 	bool isColliding(Ball& ball);
 	void Update(Ball & ball);
@@ -16,8 +16,18 @@ public:
 public:
 	bool destroyed = false;
 	Color c;
+	int klife = 1;
+	int totallife = 1;
+	static constexpr float h = 20.0f;
+	static constexpr int arrOfColors[5][3] = {
+		{75,75,75},
+		{125,125,125},
+		{175,175,175},
+		{200,200,200},
+		{255,255,255}
+	};
 private:
 	Vec2 pos; //topleft
 	float w;
-	float h;
+	
 };

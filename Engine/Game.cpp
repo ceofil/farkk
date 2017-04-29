@@ -401,6 +401,7 @@ void Game::respawnBrick(int i, int j)
 	brickz[i][j].effect.bomb = false;
 	brickz[i][j].effect.wlarge = false;
 	brickz[i][j].effect.wsmall = false;
+	brickz[i][j].effect.poop = false;
 	brickz[i][j].Init(Vec2(float(j*wbricks + space), float((i + 1)*Brick::h + space)), float(wbricks), 1);
 	brickz[i][j].effect.triggered = false;
 }

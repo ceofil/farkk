@@ -16,6 +16,7 @@ public:
 	Rect GetRect();
 	Vec2 GetPos();
 	Vec2 GetVel();
+	void SetVel(Vec2 in_vel);
 public:
 	bool wallBounce;
 	bool padBounce;

@@ -14,6 +14,7 @@ Pad::Pad(float in_x, float in_y, float in_speed, float in_w, float in_h)
 void Pad::Draw(Graphics & gfx)
 {
 	GetRect().Draw(gfx, c);
+	gfx.DrawRect(int(x), int(y), int(w / 2.0f), int(h), Colors::Green);
 }
 
 void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)
@@ -29,12 +30,14 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)
 		const Rect rec = GetRect();
 		if (std::signbit(ball.GetVel().x) == std::signbit(ballpoz.x - x) )
 		{
-			ball.toggleY();
+			//ball.toggleY();
+			ball.SetVel(Vec2((ball.GetPos().x - x)*exitRatio*(w / InitialWidth), (ball.GetVel().y)*-1.0f).GetNormalized());
 		}
 		else
 		{
 			if (ballpoz.x > rec.left && ballpoz.x < rec.right) {
-				ball.toggleY();
+				//ball.toggleY();
+				ball.SetVel(Vec2((ball.GetPos().x - x)*exitRatio*(w/InitialWidth), (ball.GetVel().y)*-1.0f).GetNormalized());
 			}
 			else {
 				ball.toggleX();

@@ -72,3 +72,8 @@ Vec2 Ball::GetVel()
 {
 	return vel;
 }
+
+void Ball::SetVel(Vec2 in_vel)
+{
+	vel = in_vel;
+}

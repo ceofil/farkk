@@ -25,4 +25,6 @@ public:
 	float y;
 	float h;
 	float InitialWidth;
+	static constexpr float centerPortion = 0.5f;
+	static constexpr float exitRatio = 0.05f;
 };

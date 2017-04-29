@@ -93,7 +93,7 @@ private:
 	float narrowrate = 0.1f;
 	float blockrate = 0.15f; bool path[nrbricks];
 	float pooprate = 0.35f;
-	float respawnrate = 0.3f;
+	float respawnrate = 0.1f;
 
 	int total = nrbricks*nrraws;
 	/********************************/

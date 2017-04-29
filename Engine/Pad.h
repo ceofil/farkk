@@ -14,6 +14,7 @@ public:
 	Rect GetRect();
 	void SetLargeW();
 	void SetNarrowW();
+	void SetInitialX();
 public:
 	Color c;
 	float w;

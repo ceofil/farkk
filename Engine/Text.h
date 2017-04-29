@@ -54,6 +54,7 @@ public:
 		void drawZ(int xpoz, int ypoz, Color c);
 		void drawV(int xpoz, int ypoz, Color c);
 		void drawU(int xpoz, int ypoz, Color c);
+		void drawQMARK(int xpoz, int ypoz, Color c);
 
 		void drawstring(char string[],int xpoz,int ypoz,Color c);
 	

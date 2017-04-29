@@ -441,6 +441,16 @@ void Text::drawU(int xpoz, int ypoz, Color c)
 	Draw7Col(xpoz + 3, ypoz, c);
 }
 
+void Text::drawQMARK(int xpoz, int ypoz, Color c)
+{
+	DrawLineK(xpoz, ypoz, 5, c);
+	DrawLineK(xpoz + 2, ypoz + 3, 3, c);
+	DrawCell(xpoz, ypoz + 1, c);
+	DrawCell(xpoz + 2, ypoz + 4, c);
+	DrawCell(xpoz + 2, ypoz + 6, c);
+	DrawColK(xpoz + 4, ypoz + 1, 2, c);
+}
+
 void Text::drawstring(char string[], int xpoz, int ypoz, Color c)
 {
 	int poz = xpoz;
@@ -599,6 +609,10 @@ void Text::drawstring(char string[], int xpoz, int ypoz, Color c)
 		else if (string[i] == '9') {
 			draw9(poz, ypoz  , c);
 			poz += 5;
+		}
+		else if (string[i] == '?') {
+			drawQMARK(poz, ypoz, c);
+			poz += 6;
 		}
 
 	}

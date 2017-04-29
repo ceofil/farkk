@@ -69,3 +69,9 @@ void Pad::SetNarrowW()
 {
 	w = 0.7f * InitialWidth;
 }
+
+void Pad::SetInitialX()
+{
+	x = 400.0f;
+	hit = false;
+}

@@ -88,8 +88,8 @@ private:
 	float bombrate = 0.05f;
 	float largerate = 0.05f;
 	float narrowrate = 0.1f;
-	float blockrate = 0.5f;
-	float pooprate = 0.3f;
+	float blockrate = 0.2f;
+	float pooprate = 0.5f;
 	/********************************/
 };
 

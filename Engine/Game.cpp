@@ -301,8 +301,8 @@ void Game::spawnEffect(int chance)
 
 void Game::bricksLeft()
 {
-	int bricksleft = 0;
-	int bircksLeftEmpty = 0;
+	bricksleft = 0;
+	bricksLeftEmpty = 0;
 	for (int i = 0; i < nrraws; i++)
 	{
 		for (int j = 0; j < nrbricks; j++)
@@ -312,7 +312,7 @@ void Game::bricksLeft()
 				bricksleft++;
 				if (brickz[i][j].effect.empty == true)
 				{
-					bircksLeftEmpty++;
+					bricksLeftEmpty++;
 				}
 			}
 		}

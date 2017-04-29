@@ -16,7 +16,7 @@ void Pad::Draw(Graphics & gfx)
 	GetRect().Draw(gfx, c);
 }
 
-void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
+void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)
 {
 	if (kbd.KeyIsPressed(VK_LEFT)) {
 		x -= speed*dt;
@@ -41,6 +41,7 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
 			}
 		}
 		cooldown = true;
+		hitByBall = true;
 	}
 	
 

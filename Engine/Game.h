@@ -48,13 +48,15 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void doEffect(int i, int j);
+	void spawnEffect(int chance);
+	void bricksLeft();
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	float speed = 800.0f;
+	float speed = 500.0f;
 	FrameTimer ft;
 	static constexpr int nrbricks = 19;
 	static constexpr int wbricks = Graphics::ScreenWidth / nrbricks;
@@ -64,14 +66,30 @@ private:
 
 	std::random_device rd;
 	std::mt19937 rng;
+	std::uniform_int_distribution<int> colonrange;
+	std::uniform_int_distribution<int> typerange;
+	std::uniform_int_distribution<int> percent;
 	Text txt;
 	Ball ball;
+	Ball ball1;
+	Ball ball2;
+	Ball ball3;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
 	Poop poopz[kpoopz];
 
 	bool explosion = false;
 	bool ispoopin = false;
+	bool hitbyball = false;
+	bool applied = false;
+	int bricksleft;
+	int bricksLeftEmpty;
+
+	float bombrate = 0.05f;
+	float largerate = 0.05f;
+	float narrowrate = 0.1f;
+	float blockrate = 0.5f;
+	float pooprate = 0.3f;
 	/********************************/
 };
 

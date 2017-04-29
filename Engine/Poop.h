@@ -15,7 +15,7 @@ public:
 	bool spawned = false;
 	static constexpr float w = 14.0f;
 	static constexpr float h = 14.0f;
-	static constexpr float speed = 100.0f;
+	static constexpr float speed = 400.0f;
 private:
 	Vec2 pos; //center
 	Vec2 vel = { 0.0f, 1.0f };

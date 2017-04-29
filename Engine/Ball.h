@@ -18,6 +18,7 @@ public:
 	Vec2 GetVel();
 public:
 	bool wallBounce;
+	bool padBounce;
 private:
 	Vec2 pos;
 	Vec2 vel;

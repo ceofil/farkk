@@ -43,6 +43,10 @@ void Brick::Update(Ball & ball)
 			destroyed = true;
 		}
 	}
+	else
+	{
+		pos.y = float(Graphics::ScreenHeight) - h;
+	}
 	
 }
 
@@ -64,10 +68,6 @@ void Brick::SetEffects(int in_type)
 		effect.bomb = true;
 		SetRGB(255, 0, 0);
 	}
-	else if (type == 1) {
-		klife = 1;
-		SetRGB(255, 255, 255);
-	}
 	else if (type == 2) {
 		effect.wlarge = true;
 		SetRGB(0, 255, 0);
@@ -82,9 +82,14 @@ void Brick::SetEffects(int in_type)
 	}
 	else if (type == 5) {
 		effect.poop = true;
-		SetRGB(138, 77, 0);
+		SetRGB(170, 90, 0);
 	}
 	effect.empty = false;
+	if (type == 1) {
+		klife = 1;
+		SetRGB(255, 255, 255);
+		effect.empty = true;
+	}
 }
 
 void Brick::SetRGB(int ir, int ig, int ib)

@@ -10,7 +10,7 @@ class Pad
 public:
 	Pad(float in_x, float in_y, float in_speed, float in_w, float in_h);
 	void Draw(Graphics& gfx);
-	void Update(Keyboard& kbd, Ball& ball, float dt);
+	void Update(Keyboard& kbd, Ball& ball, float dt, bool& hitByBall);
 	Rect GetRect();
 	void SetLargeW();
 	void SetNarrowW();

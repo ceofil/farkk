@@ -140,6 +140,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Pad.h" />
+    <ClInclude Include="Poop.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SpriteCodex.h" />
     <ClInclude Include="Text.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Pad.cpp" />
+    <ClCompile Include="Poop.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SpriteCodex.cpp" />
     <ClCompile Include="Text.cpp" />

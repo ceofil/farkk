@@ -33,6 +33,7 @@
 #include "Brick.h"
 #include "Pad.h"
 #include "FrameTimer.h"
+#include "Poop.h"
 
 class Game
 {
@@ -59,7 +60,7 @@ private:
 	static constexpr int wbricks = Graphics::ScreenWidth / nrbricks;
 	static constexpr int space = (Graphics::ScreenWidth - nrbricks*wbricks)/2;
 	static constexpr int nrraws = 9;
-
+	static constexpr int kpoopz = 10;
 
 	std::random_device rd;
 	std::mt19937 rng;
@@ -67,8 +68,10 @@ private:
 	Ball ball;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
+	Poop poopz[kpoopz];
 
 	bool explosion = false;
+	bool ispoopin = false;
 	/********************************/
 };
 

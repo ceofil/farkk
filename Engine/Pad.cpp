@@ -51,6 +51,9 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt)
 	if(x+w/2.0f>=Graphics::ScreenWidth){
 		x = Graphics::ScreenWidth - w/2.0f - 1;
 	}
+	if (hit) {
+		c = Colors::Red;
+	}
 }
 
 Rect Pad::GetRect()
@@ -65,5 +68,5 @@ void Pad::SetLargeW()
 
 void Pad::SetNarrowW()
 {
-	w = 0.7 * InitialWidth;
+	w = 0.7f * InitialWidth;
 }

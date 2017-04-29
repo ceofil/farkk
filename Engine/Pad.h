@@ -18,6 +18,7 @@ public:
 	Color c;
 	float w;
 	bool cooldown = false;
+	bool hit = false;
 public:
 	float x;
 	float speed;

@@ -80,6 +80,10 @@ void Brick::SetEffects(int in_type)
 		effect.block = true;
 		SetRGB(100, 100, 100);
 	}
+	else if (type == 5) {
+		effect.poop = true;
+		SetRGB(138, 77, 0);
+	}
 	effect.empty = false;
 }
 

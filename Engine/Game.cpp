@@ -43,7 +43,15 @@ Game::Game(MainWindow& wnd)
 	}
 	
 	brickz[nrraws - 1][nrbricks - 9].SetEffects(0);
-	brickz[nrraws - 1][nrbricks - 1].SetEffects(2);
+	brickz[nrraws - 1][nrbricks - 1].SetEffects(5);
+	brickz[nrraws - 1][nrbricks - 2].SetEffects(5);
+	brickz[nrraws - 1][nrbricks - 3].SetEffects(5);
+	brickz[nrraws - 1][nrbricks - 4].SetEffects(5);
+	brickz[nrraws - 1][nrbricks - 9].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 8].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 7].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 6].SetEffects(0);
+	brickz[nrraws - 1][nrbricks - 5].SetEffects(0);
 }
 
 void Game::Go()
@@ -64,8 +72,18 @@ void Game::Go()
 void Game::UpdateModel(float dt)
 {
 
-	ball.Update(dt);
+	if (ispoopin)
+	{
+		for (int i = 0; i < kpoopz; i++)
+		{
+			if (poopz[i].spawned)
+			{
+				poopz[i].Update(pad,dt);
+			}
+		}
+	}
 
+	ball.Update(dt);
 	float mini = Graphics::ScreenWidth;
 	int targeti = -1;
 	int targetj = -1;
@@ -132,6 +150,16 @@ void Game::ComposeFrame()
 			brickz[i][j].Draw(gfx);
 		}
 	}
+	if (ispoopin)
+	{
+		for (int i = 0; i < kpoopz; i++)
+		{
+			if (poopz[i].spawned)
+			{
+				poopz[i].Draw(gfx);
+			}
+		}
+	}
 	pad.Draw(gfx);
 	ball.Draw(gfx);
 }
@@ -156,13 +184,29 @@ void Game::doEffect(int i, int j)
 				}
 			}
 		}
+		
 		if (brickz[i][j].effect.wlarge == true)
 		{
 			pad.SetLargeW();
 		}
+		
 		if (brickz[i][j].effect.wsmall == true)
 		{
 			pad.SetNarrowW();
 		}
+		
+		if (brickz[i][j].effect.poop == true)
+		{
+			for (int a = 0; a < kpoopz; a++)
+			{
+				if (poopz[a].spawned == false)
+				{
+					poopz[a].Spawn(brickz[i][j].getCenter().x, brickz[i][j].getCenter().y);
+					ispoopin = true;
+					a = kpoopz;
+				}
+			}
+		}
+		
 		brickz[i][j].effect.triggered = true;
 }

@@ -62,12 +62,12 @@ Rect Pad::GetRect()
 
 void Pad::SetLargeW()
 {
-	w = 1.5f * InitialWidth;
+	w = 1.3f * InitialWidth;
 }
 
 void Pad::SetNarrowW()
 {
-	w = 0.7f * InitialWidth;
+	w = 0.8f * InitialWidth;
 }
 
 void Pad::SetInitialX()

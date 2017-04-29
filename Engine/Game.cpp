@@ -34,7 +34,7 @@ Game::Game(MainWindow& wnd)
 	percent(1,100),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
-	pad(400.0f,float(Graphics::ScreenHeight-75),speed,100.0f,10.0f)
+	pad(400.0f,float(Graphics::ScreenHeight-75),speed*1.2f,100.0f,10.0f)
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)

@@ -50,6 +50,8 @@ private:
 	void doEffect(int i, int j);
 	void spawnEffect(int chance);
 	void bricksLeft();
+	void respawnBrick(int i, int j);
+	void respawnBricks();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -71,25 +73,29 @@ private:
 	std::uniform_int_distribution<int> percent;
 	Text txt;
 	Ball ball;
-	Ball ball1;
-	Ball ball2;
-	Ball ball3;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
 	Poop poopz[kpoopz];
+	bool gameover = false;
+	bool win = false;
+	bool defeat = false;
+	bool started = false;
 
 	bool explosion = false;
 	bool ispoopin = false;
 	bool hitbyball = false;
 	bool applied = false;
-	int bricksleft;
+	int bricksleft=1;
 	int bricksLeftEmpty;
 
 	float bombrate = 0.05f;
 	float largerate = 0.05f;
 	float narrowrate = 0.1f;
-	float blockrate = 0.2f;
-	float pooprate = 0.5f;
+	float blockrate = 0.15f; bool path[nrbricks];
+	float pooprate = 0.35f;
+	float respawnrate = 0.3f;
+
+	int total = nrbricks*nrraws;
 	/********************************/
 };
 

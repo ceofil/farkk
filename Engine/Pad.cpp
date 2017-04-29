@@ -30,14 +30,12 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)
 		const Rect rec = GetRect();
 		if (std::signbit(ball.GetVel().x) == std::signbit(ballpoz.x - x) )
 		{
-			//ball.toggleY();
-			ball.SetVel(Vec2((ball.GetPos().x - x)*exitRatio*(w / InitialWidth), (ball.GetVel().y)*-1.0f).GetNormalized());
+			ball.SetVel(Vec2((ball.GetPos().x - x)/w*2.0f, (ball.GetVel().y)*-1.0f).GetNormalized());
 		}
 		else
 		{
 			if (ballpoz.x > rec.left && ballpoz.x < rec.right) {
-				//ball.toggleY();
-				ball.SetVel(Vec2((ball.GetPos().x - x)*exitRatio*(w/InitialWidth), (ball.GetVel().y)*-1.0f).GetNormalized());
+				ball.SetVel(Vec2((ball.GetPos().x - x) / w*2.0f, (ball.GetVel().y)*-1.0f).GetNormalized());
 			}
 			else {
 				ball.toggleX();
@@ -54,9 +52,6 @@ void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)
 	}
 	if(x+w/2.0f>=Graphics::ScreenWidth){
 		x = Graphics::ScreenWidth - w/2.0f - 1;
-	}
-	if (hit) {
-		c = Colors::Red;
 	}
 }
 

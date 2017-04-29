@@ -77,3 +77,8 @@ void Ball::SetVel(Vec2 in_vel)
 {
 	vel = in_vel;
 }
+
+void Ball::SetInitialPos()
+{
+	pos = Vec2(400.0f, 400.0f);
+}

@@ -72,6 +72,7 @@ private:
 	std::uniform_int_distribution<int> typerange;
 	std::uniform_int_distribution<int> percent;
 	Text txt;
+	Text smalltxt;
 	Ball ball;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
@@ -89,11 +90,11 @@ private:
 	int bricksleft=1;
 	int bricksLeftEmpty;
 
-	float bombrate = 0.25f;
-	float largerate = 0.05f;
+	float bombrate = 0.1f;
+	float largerate = 0.1f;
 	float narrowrate = 0.1f;
 	float blockrate = 0.15f;
-	float pooprate = 0.35f;
+	float pooprate = 0.6f;
 	float respawnrate = 0.1f;
 
 	int total = nrbricks*nrraws;

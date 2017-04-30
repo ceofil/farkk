@@ -33,6 +33,7 @@ Game::Game(MainWindow& wnd)
 	typerange(0, 5),
 	percent(1,100),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
+	smalltxt(gfx, 1,1,1,1,50,50),
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
 	pad(400.0f,float(Graphics::ScreenHeight-75),speed*1.2f,150.0f,10.0f)
 {	
@@ -50,24 +51,22 @@ Game::Game(MainWindow& wnd)
 		path[j].destroyed = true;
 	}
 
+	float sum = largerate + narrowrate + blockrate + pooprate + respawnrate + bombrate;
+	sum = 100.0f / sum;
+
+	largerate *= sum;
+	narrowrate *= sum;
+	blockrate *= sum;
+	pooprate *= sum;
+	respawnrate *= sum;
+	bombrate *= sum;
 
 	largerate += bombrate;
 	narrowrate += largerate;
 	blockrate += narrowrate;
 	pooprate += blockrate;
 	respawnrate += pooprate;
-	
 
-	brickz[8][5].SetEffects(4);
-	brickz[8][6].SetEffects(4);
-	brickz[8][8].SetEffects(4);
-	brickz[8][7].SetEffects(4);
-	brickz[8][9].SetEffects(4);
-	brickz[8][10].SetEffects(4);
-	brickz[8][11].SetEffects(4);
-	brickz[8][12].SetEffects(4);
-	brickz[8][13].SetEffects(4);
-	brickz[8][14].SetEffects(4);
 
 }
 
@@ -100,12 +99,6 @@ void Game::UpdateModel(float dt)
 		if (!gameover) {
 			win = !(bricksleft);
 			defeat = (ball.GetPos().y > Graphics::ScreenHeight - Brick::h) || pad.hit;
-			/*
-			if (wnd.kbd.KeyIsPressed(VK_ESCAPE))
-			{
-				win = true;
-			}
-			*/
 			gameover = win || defeat;
 			bricksLeft();
 			if (ispoopin)
@@ -147,6 +140,7 @@ void Game::UpdateModel(float dt)
 				brickz[targeti][targetj].Update(ball);
 				doEffect(targeti, targetj);
 				pad.cooldown = false;
+				//brick sound
 			}
 
 
@@ -172,6 +166,7 @@ void Game::UpdateModel(float dt)
 			{
 				path[pathj].Update(ball);
 				pad.cooldown = false;
+				//brick sound
 			}
 
 			while (explosion)
@@ -191,6 +186,7 @@ void Game::UpdateModel(float dt)
 
 			if (ball.wallBounce) {
 				gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
+				pad.c = Color(100, 100, 100);
 				ball.wallBounce = false;
 				pad.cooldown = false;
 
@@ -205,8 +201,8 @@ void Game::UpdateModel(float dt)
 					{
 						spawnEffect(percent(rng));
 					}
-
 					hitbyball = false;
+					//pad sound
 				}
 			}
 		}
@@ -237,7 +233,7 @@ void Game::ComposeFrame()
 			gfx.DrawRectPoints(1, 1, Graphics::ScreenWidth - 1, Graphics::ScreenHeight - 1, Color(30, 30, 30));
 			const int xprogress = int(float(Graphics::ScreenWidth)*float(total - bricksleft) / float(total));
 			gfx.DrawRectPoints(1, 1, xprogress, int(Brick::h), Colors::Green);
-			txt.drawint(int(float(total - bricksleft) / float(total) * 100.0f), (xprogress - 5) / 4 - 2, 1, Colors::Black);
+			txt.drawint(int(float(total - bricksleft) / float(total) * 100.0f), (xprogress) / 2 - 12, 1, Colors::Black);
 
 			for (int j = 0; j < nrbricks; j++)
 			{
@@ -277,7 +273,26 @@ void Game::ComposeFrame()
 		}
 	}
 	else{
-		txt.drawstring("press enter", Graphics::ScreenWidth / 4 - 29, Graphics::ScreenHeight / 4-4, Colors::White);
+		int sw = Graphics::ScreenWidth;
+		int sh = Graphics::ScreenHeight;
+		txt.drawstring("press enter", sw / 4 - 29, sh / 4-4, Colors::White);
+		gfx.DrawRect(sw / 4, sh / 3, int(wbricks) - 4, int(Brick::h) - 2, Colors::Green);
+		smalltxt.drawstring("wide pad", sw / 4-20, sh / 3- int(Brick::h) - 5, Colors::White);
+
+
+		gfx.DrawRect(sw / 2, sh / 3, int(wbricks) - 4, int(Brick::h) - 2, Color(170,90,0));
+		SpriteCodex::DrawPoo(Vec2(float(sw / 2), float(sh / 3 )-Brick::h),gfx);
+
+		gfx.DrawRect(sw / 4 * 3, sh / 3 , int(wbricks) - 4, int(Brick::h) - 2, Color(100,100,100));
+		smalltxt.drawstring("safe", sw / 4 * 3 - 10, sh / 3 - int(Brick::h) - 5, Colors::White);
+
+		gfx.DrawRect(sw / 5 * 2, sh / 3 * 2, int(wbricks) - 4, int(Brick::h) - 2, Color(255, 0, 0));
+		smalltxt.drawstring("bomb", sw / 5 * 2 - 10, sh / 3 * 2 - int(Brick::h) - 5, Colors::White);
+		
+		gfx.DrawRect(sw / 5 * 3, sh / 3 * 2, int(wbricks)-4, int(Brick::h)-2, Color(255, 255, 0));
+		smalltxt.drawstring("narrow pad", sw / 5 * 3 - 23, sh / 3 * 2 - int(Brick::h) - 5, Colors::White);
+
+
 	}
 	txt.drawint(bricksleft, 0, 200, Colors::Green);
 }
@@ -291,6 +306,7 @@ void Game::doEffect(int i, int j)
 	if (brickz[i][j].effect.triggered == false) {
 		if (brickz[i][j].effect.bomb == true)
 		{
+			//bomb sound
 			for (int li = 0; li < nrraws; li++)
 			{
 				for (int lj = 0; lj < nrbricks; lj++)
@@ -310,16 +326,19 @@ void Game::doEffect(int i, int j)
 
 		if (brickz[i][j].effect.wlarge == true)
 		{
+			//boost sound
 			pad.SetLargeW();
 		}
 
 		if (brickz[i][j].effect.wsmall == true)
 		{
+			//nerf sound
 			pad.SetNarrowW();
 		}
 
 		if (brickz[i][j].effect.poop == true)
 		{
+			//fart sound
 			for (int a = 0; a < kpoopz; a++)
 			{
 				if (poopz[a].spawned == false)
@@ -333,6 +352,7 @@ void Game::doEffect(int i, int j)
 
 		if (brickz[i][j].effect.block == true)
 		{
+			//stone sound
 			if (path[j].destroyed == true)
 			{
 				path[j].destroyed = false;
@@ -348,7 +368,7 @@ void Game::spawnEffect(int chance)
 {
 	int yEffect = colonrange(rng);
 	int typeEffect = typerange(rng);
-	if (chance <= int(100.0f*bombrate) )
+	if (chance <= int(bombrate) )
 	{
 		for (int i = nrraws - 1; i >= 0; i--)
 		{
@@ -360,7 +380,7 @@ void Game::spawnEffect(int chance)
 			}
 		}
 	}
-	else if (chance <= int(100.0f*largerate))
+	else if (chance <= int(largerate))
 	{
 		for (int i = nrraws - 1; i >= 0; i--)
 		{
@@ -372,7 +392,7 @@ void Game::spawnEffect(int chance)
 			}
 		}
 	}
-	else if (chance <= int(100.0f*narrowrate))
+	else if (chance <= int(narrowrate))
 	{
 		for (int i = nrraws - 1; i >= 0; i--)
 		{
@@ -384,7 +404,7 @@ void Game::spawnEffect(int chance)
 			}
 		}
 	}
-	else if (chance <= int(100.0f*blockrate))
+	else if (chance <= int(blockrate))
 	{
 
 	
@@ -399,7 +419,7 @@ void Game::spawnEffect(int chance)
 		
 		applied = true;
 	}
-	else if (chance <= int(100.0f*pooprate))
+	else if (chance <= int(pooprate))
 	{
 		for (int i = nrraws - 1; i >= 0; i--)
 		{
@@ -411,7 +431,7 @@ void Game::spawnEffect(int chance)
 			}
 		}
 	}
-	else if(chance<= int(100*respawnrate)){
+	else if(chance<= int(respawnrate)){
 		if (total - bricksleft > 10) {
 			for (int i = 0; i < nrraws; i++) {
 				if (brickz[i][yEffect].destroyed == true)

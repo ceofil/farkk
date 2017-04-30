@@ -34,7 +34,7 @@ Game::Game(MainWindow& wnd)
 	percent(1,100),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
-	pad(400.0f,float(Graphics::ScreenHeight-75),speed*1.2f,100.0f,10.0f)
+	pad(400.0f,float(Graphics::ScreenHeight-75),speed*1.2f,150.0f,10.0f)
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
@@ -44,15 +44,30 @@ Game::Game(MainWindow& wnd)
 			brickz[i][j].Init(Vec2(float(j*wbricks+space), float((i+1)*Brick::h+space)), float(wbricks), 1 );
 		}
 	}
+	for (int j = 0; j < nrbricks; j++)
+	{
+		path[j].Init(Vec2(float(j*wbricks + space), Graphics::ScreenHeight-Brick::h), float(wbricks), 1);
+		path[j].destroyed = true;
+	}
+
+
 	largerate += bombrate;
 	narrowrate += largerate;
 	blockrate += narrowrate;
 	pooprate += blockrate;
 	respawnrate += pooprate;
-	for (int i = 0; i < nrbricks; i++)
-	{
-		path[i] = false;
-	}
+	
+
+	brickz[8][5].SetEffects(4);
+	brickz[8][6].SetEffects(4);
+	brickz[8][8].SetEffects(4);
+	brickz[8][7].SetEffects(4);
+	brickz[8][9].SetEffects(4);
+	brickz[8][10].SetEffects(4);
+	brickz[8][11].SetEffects(4);
+	brickz[8][12].SetEffects(4);
+	brickz[8][13].SetEffects(4);
+	brickz[8][14].SetEffects(4);
 
 }
 
@@ -105,7 +120,7 @@ void Game::UpdateModel(float dt)
 			}
 
 			ball.Update(dt);
-			float mini = Graphics::ScreenWidth;
+			float mini = float(Graphics::ScreenWidth);
 			int targeti = -1;
 			int targetj = -1;
 			for (int i = 0; i < nrraws; i++)
@@ -127,11 +142,38 @@ void Game::UpdateModel(float dt)
 					}
 				}
 			}
+
 			if (targeti >= 0) {
 				brickz[targeti][targetj].Update(ball);
 				doEffect(targeti, targetj);
 				pad.cooldown = false;
 			}
+
+
+
+			float pathmini = float(Graphics::ScreenWidth);
+			int pathj = -1;
+			for (int j = 0; j < nrbricks; j++)
+			{
+				if (path[j].destroyed == false)
+				{
+					if (path[j].isColliding(ball))
+					{
+						float dist = (ball.GetPos() - path[j].getCenter()).getLengthSq();
+						if (dist < pathmini)
+						{
+							pathmini = dist;
+							pathj = j;
+						}
+					}
+				}
+			}
+			if (pathmini < float(Graphics::ScreenWidth))
+			{
+				path[pathj].Update(ball);
+				pad.cooldown = false;
+			}
+
 			while (explosion)
 			{
 				for (int i = 0; i < nrraws; i++)
@@ -140,11 +182,11 @@ void Game::UpdateModel(float dt)
 					{
 						if (brickz[i][j].destroyed == true && brickz[i][j].effect.triggered == false)
 						{
-							explosion = false;
 							doEffect(i, j);
 						}
 					}
 				}
+				explosion = false;
 			}
 
 			if (ball.wallBounce) {
@@ -197,6 +239,11 @@ void Game::ComposeFrame()
 			gfx.DrawRectPoints(1, 1, xprogress, int(Brick::h), Colors::Green);
 			txt.drawint(int(float(total - bricksleft) / float(total) * 100.0f), (xprogress - 5) / 4 - 2, 1, Colors::Black);
 
+			for (int j = 0; j < nrbricks; j++)
+			{
+				path[j].Draw(gfx);
+			}
+
 			for (int i = 0; i < nrraws; i++)
 			{
 				for (int j = 0; j < nrbricks; j++)
@@ -232,6 +279,7 @@ void Game::ComposeFrame()
 	else{
 		txt.drawstring("press enter", Graphics::ScreenWidth / 4 - 29, Graphics::ScreenHeight / 4-4, Colors::White);
 	}
+	txt.drawint(bricksleft, 0, 200, Colors::Green);
 }
 
 
@@ -240,6 +288,7 @@ void Game::ComposeFrame()
 
 void Game::doEffect(int i, int j)
 {
+	if (brickz[i][j].effect.triggered == false) {
 		if (brickz[i][j].effect.bomb == true)
 		{
 			for (int li = 0; li < nrraws; li++)
@@ -247,7 +296,7 @@ void Game::doEffect(int i, int j)
 				for (int lj = 0; lj < nrbricks; lj++)
 				{
 					float dist = (brickz[li][lj].getCenter() - brickz[i][j].getCenter()).getLength();
-					if (dist < float(2*wbricks) && dist > 1.0f) {
+					if (dist < float(2 * wbricks) && dist > 1.0f) {
 						brickz[li][lj].destroyed = true;
 						if (brickz[li][lj].effect.block == true)
 						{
@@ -258,17 +307,17 @@ void Game::doEffect(int i, int j)
 				}
 			}
 		}
-		
+
 		if (brickz[i][j].effect.wlarge == true)
 		{
 			pad.SetLargeW();
 		}
-		
+
 		if (brickz[i][j].effect.wsmall == true)
 		{
 			pad.SetNarrowW();
 		}
-		
+
 		if (brickz[i][j].effect.poop == true)
 		{
 			for (int a = 0; a < kpoopz; a++)
@@ -281,8 +330,18 @@ void Game::doEffect(int i, int j)
 				}
 			}
 		}
-		
+
+		if (brickz[i][j].effect.block == true)
+		{
+			if (path[j].destroyed == true)
+			{
+				path[j].destroyed = false;
+			}
+		}
+
 		brickz[i][j].effect.triggered = true;
+
+	}
 }
 
 void Game::spawnEffect(int chance)
@@ -328,8 +387,7 @@ void Game::spawnEffect(int chance)
 	else if (chance <= int(100.0f*blockrate))
 	{
 
-		if (path[yEffect] == false) {
-			path[yEffect] = true;
+	
 			for (int i = nrraws - 1; i >= 0; i--)
 			{
 				if (brickz[i][yEffect].destroyed == false && brickz[i][yEffect].effect.empty == true)
@@ -338,7 +396,7 @@ void Game::spawnEffect(int chance)
 					break;
 				}
 			}
-		}
+		
 		applied = true;
 	}
 	else if (chance <= int(100.0f*pooprate))
@@ -360,6 +418,7 @@ void Game::spawnEffect(int chance)
 				{
 					respawnBrick(i, yEffect);
 					applied = true;
+					break;
 				}
 			}
 		}
@@ -419,6 +478,9 @@ void Game::respawnBricks()
 		poopz[i].spawned = false;
 	}
 	pad.SetInitialX();
+	for (int j = 0; j < nrbricks; j++) {
+		path[j].destroyed = true;
+	}
 }
 
 

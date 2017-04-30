@@ -36,16 +36,10 @@ void Brick::Update(Ball & ball)
 			ball.toggleX();
 		}
 	}
-	if (!effect.block) {
-		klife--;
-		if (klife < 1)
-		{
-			destroyed = true;
-		}
-	}
-	else
+	klife--;
+	if (klife < 1)
 	{
-		pos.y = float(Graphics::ScreenHeight) - h;
+		destroyed = true;
 	}
 	
 }

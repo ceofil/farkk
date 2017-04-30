@@ -75,6 +75,7 @@ private:
 	Ball ball;
 	Pad pad;
 	Brick brickz[nrraws][nrbricks];
+	Brick path[nrbricks];
 	Poop poopz[kpoopz];
 	bool gameover = false;
 	bool win = false;
@@ -88,10 +89,10 @@ private:
 	int bricksleft=1;
 	int bricksLeftEmpty;
 
-	float bombrate = 0.05f;
+	float bombrate = 0.25f;
 	float largerate = 0.05f;
 	float narrowrate = 0.1f;
-	float blockrate = 0.15f; bool path[nrbricks];
+	float blockrate = 0.15f;
 	float pooprate = 0.35f;
 	float respawnrate = 0.1f;
 

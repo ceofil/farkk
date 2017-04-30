@@ -29,13 +29,17 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	colonrange(0,nrbricks-1),
+	colonrange(0, nrbricks - 1),
 	typerange(0, 5),
-	percent(1,100),
+	percent(1, 100),
 	txt(gfx, 1, 1, 2, 2, 50, 50),
-	smalltxt(gfx, 1,1,1,1,50,50),
+	smalltxt(gfx, 1, 1, 1, 1, 50, 50),
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
-	pad(400.0f,float(Graphics::ScreenHeight-75),speed*1.2f,150.0f,10.0f)
+	pad(400.0f, float(Graphics::ScreenHeight - 75), speed*1.2f, 150.0f, 10.0f),
+	soundPad(L"Sounds\\arkpad.wav"),
+	//soundBomb(L"Sounds\\bomb.wav"),
+	soundBrick(L"Sounds\\arkbrick.wav"),
+	soundFart( L"Sounds\\fart.wav")
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
@@ -140,7 +144,7 @@ void Game::UpdateModel(float dt)
 				brickz[targeti][targetj].Update(ball);
 				doEffect(targeti, targetj);
 				pad.cooldown = false;
-				//brick sound
+				soundBrick.Play();
 			}
 
 
@@ -166,7 +170,7 @@ void Game::UpdateModel(float dt)
 			{
 				path[pathj].Update(ball);
 				pad.cooldown = false;
-				//brick sound
+				soundBrick.Play();
 			}
 
 			while (explosion)
@@ -185,8 +189,7 @@ void Game::UpdateModel(float dt)
 			}
 
 			if (ball.wallBounce) {
-				gfx.DrawCircle(400, 300, 10, Colors::Red); //replace with sound
-				pad.c = Color(100, 100, 100);
+				soundPad.Play();
 				ball.wallBounce = false;
 				pad.cooldown = false;
 
@@ -202,7 +205,7 @@ void Game::UpdateModel(float dt)
 						spawnEffect(percent(rng));
 					}
 					hitbyball = false;
-					//pad sound
+					soundPad.Play();
 				}
 			}
 		}
@@ -306,7 +309,7 @@ void Game::doEffect(int i, int j)
 	if (brickz[i][j].effect.triggered == false) {
 		if (brickz[i][j].effect.bomb == true)
 		{
-			//bomb sound
+			//soundBomb.Play();
 			for (int li = 0; li < nrraws; li++)
 			{
 				for (int lj = 0; lj < nrbricks; lj++)
@@ -326,19 +329,17 @@ void Game::doEffect(int i, int j)
 
 		if (brickz[i][j].effect.wlarge == true)
 		{
-			//boost sound
 			pad.SetLargeW();
 		}
 
 		if (brickz[i][j].effect.wsmall == true)
 		{
-			//nerf sound
 			pad.SetNarrowW();
 		}
 
 		if (brickz[i][j].effect.poop == true)
 		{
-			//fart sound
+			soundFart.Play();
 			for (int a = 0; a < kpoopz; a++)
 			{
 				if (poopz[a].spawned == false)
@@ -352,7 +353,6 @@ void Game::doEffect(int i, int j)
 
 		if (brickz[i][j].effect.block == true)
 		{
-			//stone sound
 			if (path[j].destroyed == true)
 			{
 				path[j].destroyed = false;

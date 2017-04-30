@@ -142,6 +142,7 @@
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Poop.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteCodex.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="ChiliException.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Poop.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteCodex.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="DXErr.cpp" />

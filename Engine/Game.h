@@ -34,6 +34,7 @@
 #include "Pad.h"
 #include "FrameTimer.h"
 #include "Poop.h"
+#include "Sound.h"
 
 class Game
 {
@@ -78,6 +79,10 @@ private:
 	Brick brickz[nrraws][nrbricks];
 	Brick path[nrbricks];
 	Poop poopz[kpoopz];
+	Sound soundPad;
+	Sound soundBomb;
+	Sound soundBrick;
+	Sound soundFart;
 	bool gameover = false;
 	bool win = false;
 	bool defeat = false;

@@ -13,8 +13,12 @@ Pad::Pad(float in_x, float in_y, float in_speed, float in_w, float in_h)
 
 void Pad::Draw(Graphics & gfx)
 {
-	GetRect().Draw(gfx, c);
-	gfx.DrawRect(int(x), int(y), int(w / 2.0f), int(h), Colors::Green);
+	for (int i = int(x - w / 2.0f); i <= int(x + w / 2.0f); i++) {
+		int ig = int(255.0f / (w/1.5f) * std::abs(x - float(i)));  //   w/1.5f insteaf of w/2.0f because I don't want the pad to be completely black at the ends
+		for (int j = int(y - h / 2.0f); j <= int(y + h / 2.0f); j++) {
+			gfx.PutPixel(i, j, 255-ig, 255-ig, 255-ig);
+		}
+	}
 }
 
 void Pad::Update(Keyboard& kbd,Ball& ball, float dt, bool& hitByBall)

@@ -80,7 +80,6 @@ private:
 	Brick path[nrbricks];
 	Poop poopz[kpoopz];
 	Sound soundPad;
-	Sound soundBomb;
 	Sound soundBrick;
 	Sound soundFart;
 	bool gameover = false;

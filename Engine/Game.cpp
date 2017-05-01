@@ -37,7 +37,6 @@ Game::Game(MainWindow& wnd)
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
 	pad(400.0f, float(Graphics::ScreenHeight - 75), speed*1.2f, 150.0f, 10.0f),
 	soundPad(L"Sounds\\arkpad.wav"),
-	//soundBomb(L"Sounds\\bomb.wav"),
 	soundBrick(L"Sounds\\arkbrick.wav"),
 	soundFart( L"Sounds\\fart.wav")
 {	
@@ -231,9 +230,10 @@ void Game::UpdateModel(float dt)
 
 void Game::ComposeFrame()
 {
+	gfx.DrawRectPoints(1, 1, Graphics::ScreenWidth - 1, Graphics::ScreenHeight - 1, Color(30, 30, 30));
 	if (started) {
 		if (!gameover) {
-			gfx.DrawRectPoints(1, 1, Graphics::ScreenWidth - 1, Graphics::ScreenHeight - 1, Color(30, 30, 30));
+			
 			const int xprogress = int(float(Graphics::ScreenWidth)*float(total - bricksleft) / float(total));
 			gfx.DrawRectPoints(1, 1, xprogress, int(Brick::h), Colors::Green);
 			txt.drawint(int(float(total - bricksleft) / float(total) * 100.0f), (xprogress) / 2 - 12, 1, Colors::Black);
@@ -297,7 +297,6 @@ void Game::ComposeFrame()
 
 
 	}
-	txt.drawint(bricksleft, 0, 200, Colors::Green);
 }
 
 

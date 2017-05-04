@@ -35,10 +35,7 @@ Game::Game(MainWindow& wnd)
 	txt(gfx, 1, 1, 2, 2, 50, 50),
 	smalltxt(gfx, 1, 1, 1, 1, 50, 50),
 	ball(Vec2(350.0f, 500.0f), Vec2(-.5f, -1.5f), speed),
-	pad(400.0f, float(Graphics::ScreenHeight - 75), speed*1.2f, 150.0f, 10.0f),
-	soundPad(L"Sounds\\arkpad.wav"),
-	soundBrick(L"Sounds\\arkbrick.wav"),
-	soundFart( L"Sounds\\fart.wav")
+	pad(400.0f, float(Graphics::ScreenHeight - 75), speed*1.2f, 150.0f, 10.0f)
 {	
 	pad.c = { 255,255,255 };
 	for (int i = 0; i < nrraws; i++)
@@ -143,7 +140,6 @@ void Game::UpdateModel(float dt)
 				brickz[targeti][targetj].Update(ball);
 				doEffect(targeti, targetj);
 				pad.cooldown = false;
-				soundBrick.Play();
 			}
 
 
@@ -169,7 +165,6 @@ void Game::UpdateModel(float dt)
 			{
 				path[pathj].Update(ball);
 				pad.cooldown = false;
-				soundBrick.Play();
 			}
 
 			while (explosion)
@@ -188,7 +183,6 @@ void Game::UpdateModel(float dt)
 			}
 
 			if (ball.wallBounce) {
-				soundPad.Play();
 				ball.wallBounce = false;
 				pad.cooldown = false;
 
@@ -204,7 +198,6 @@ void Game::UpdateModel(float dt)
 						spawnEffect(percent(rng));
 					}
 					hitbyball = false;
-					soundPad.Play();
 				}
 			}
 		}
@@ -338,7 +331,6 @@ void Game::doEffect(int i, int j)
 
 		if (brickz[i][j].effect.poop == true)
 		{
-			soundFart.Play();
 			for (int a = 0; a < kpoopz; a++)
 			{
 				if (poopz[a].spawned == false)
